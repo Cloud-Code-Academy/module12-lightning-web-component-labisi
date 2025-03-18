@@ -10,9 +10,7 @@ export default class Pd1CertificationCalculator extends LightningElement {
     certificationscore = 0;
     numberOfExamQuestions = 60;
 
-    attemptHistory = [
-        {Id: 0, Score:0}   
-    ];
+    attemptHistory = [];
     
     showResources = false;
     showGoodJob = false;
@@ -24,7 +22,7 @@ export default class Pd1CertificationCalculator extends LightningElement {
         let processautomationweight = this.processAutomationScore * 0.3;
         let userinterfaceweight = this.userInterfaceScore * 0.25;
         let testdebugdeployweight = this.testDebugDeployScore * 0.22;
-        this.certificationscore = devfundamentalweight  + processautomationweight  + userinterfaceweight + testdebugdeployweight;
+        this.certificationscore = Math.floor(devfundamentalweight  + processautomationweight  + userinterfaceweight + testdebugdeployweight);
 
         this.showResourcesTest();
         this.addAttemptHistory(this.certificationscore);
@@ -71,6 +69,6 @@ export default class Pd1CertificationCalculator extends LightningElement {
      } 
 
      connectedCallback(){
-         this.currentHistoryId = this.attemptHistory.length;
+         this.currentHistoryId = 0;
      }
 }
