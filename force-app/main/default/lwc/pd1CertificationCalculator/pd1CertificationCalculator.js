@@ -7,15 +7,17 @@ export default class Pd1CertificationCalculator extends LightningElement {
     processAutomationScore  = 30;
     userInterfaceScore  = 25;
    
-    certificationscore = 70;
+    certificationscore = 0;
     numberOfExamQuestions = 60;
 
     attemptHistory = [
-        {Id: 1, Score:90}   
+        {Id: 0, Score:0}   
     ];
     
     showResources = false;
     showGoodJob = false;
+
+     currentHistoryId = 0;
     
      calculatescore(){
         let devfundamentalweight = this.devFundamentalsScore * 0.23;
@@ -54,8 +56,9 @@ export default class Pd1CertificationCalculator extends LightningElement {
         }
         
      addAttemptHistory(Score){
+        this.currentHistoryId ++;
        const attempt={
-            Id: this.attemptHistory.length + 1,
+            Id: this.currentHistoryId,
             Score
         }
        this.attemptHistory = [...this.attemptHistory, attempt];
@@ -66,4 +69,8 @@ export default class Pd1CertificationCalculator extends LightningElement {
         let attemptId = event.detail;
         this.attemptHistory = this.attemptHistory.filter(attempt => attempt.Id != attemptId);
      } 
+
+     connectedCallback(){
+         this.currentHistoryId = this.attemptHistory.length;
+     }
 }

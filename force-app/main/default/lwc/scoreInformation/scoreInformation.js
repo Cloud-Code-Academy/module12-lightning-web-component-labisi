@@ -21,4 +21,6 @@ export default class ScoreInformation extends LightningElement {
     this.dispatchEvent(deleteEvent);
   }
 
+ 
+
 }
