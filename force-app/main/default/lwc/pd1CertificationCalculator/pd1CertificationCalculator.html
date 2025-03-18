@@ -1,0 +1,90 @@
+<template>
+    <lightning-card  title="Score Calculator">
+       
+         <lightning-button 
+           variant="brand" 
+           label="Calculate" 
+           title="Calculate" 
+           slot="actions" 
+           onclick={calculatescore}>
+        </lightning-button>
+        
+        
+        <div class="slds-p-horizontal_small">
+            <lightning-input 
+              type="number" 
+              name="devFundamentals" 
+              label="Dev Fundamentals: 23%"
+              value = {devFundamentalsScore}
+              onchange = {handleChange}>
+            </lightning-input>
+
+            <lightning-input
+              type="number" 
+              name="processAutomation" 
+              label="Process Automation: 30%"
+              value = {processAutomationScore}
+              onchange = {handleChange}>
+            </lightning-input>
+
+            <lightning-input 
+              type="number" 
+              name="userInterface" 
+              label="User Interface: 25% "
+              value = {userInterfaceScore}
+              onchange = {handleChange}>
+            </lightning-input>
+
+            <lightning-input 
+              type="number" 
+              name="testDebugDeploy" 
+              label="Testing, Debugging and Deployment: 22%"
+              value = {testDebugDeployScore}
+              onchange = {handleChange}>
+            </lightning-input>
+        </div>
+       
+      <div slot="footer"> 
+        <h1 class = "certresult">Certification Results </h1>
+        <p>  Certification Score: <span class = "scoretext">{certificationscore}%</span></p> 
+         <div>
+            <h1 class="slds-text-heading_large">Attempt History  </h1>
+            <lightning-tabset>
+              <ul for:each={attemptHistory} for:item="attempt" key={attempt.Id}>
+               <lightning-tab label={attempt.Id}>
+                <c-score-information
+                score={attempt.Score}
+                attempt-id={attempt.Id} 
+                number-of-exam-questions={numberOfExamQuestions}
+                ondeleteattempt = {deleteAttemptHandler}
+                ></c-score-information>
+               </lightning-tab>
+              </ul>
+            </lightning-tabset> 
+          </div>
+        
+        <template lwc:if={showResources}>
+            <ul>
+                <li>
+                    Resources
+                </li>
+                <li>
+                    <a href="trailhead.com"> PD1 Exam Guide</a>
+                </li>
+                <li>
+                    <a href="focusonforcecom"> Focus on Force</a>
+                </li>
+                <li>
+                    <a href="salesforcementor.com"> Salesforce Mentor</a>
+                </li>
+            </ul> 
+        </template>
+        <template lwc:elseif= {showGoodJob}>
+            <p>Congratulations!🎉</p>
+        </template>
+        <template lwc:else>
+         Enter your scores and press Calculate
+        </template> 
+      </div> 
+    </lightning-card>
+</template>
